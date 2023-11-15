@@ -32,6 +32,11 @@ int main(){
 	/* load library from name library_name */
 
 	void* lib_handler = dlopen(library_name, RTLD_LAZY);
+	if(lib_handler == NULL)
+	{
+		printf("Error opening library. Exiting...\n");
+		exit(1);
+	}
 
 	/* declare pointers to functions */
 
@@ -39,12 +44,20 @@ int main(){
 	void (*func_2)();
 
 	/*load func_1 from loaded library */
-
 	func_1 = dlsym(lib_handler, "func_1");
+	if(func_1 == NULL)
+	{
+		printf("Error loading library. Exiting...\n");
+		exit(1);
+	}
     
 	/*load func_2 from loaded library */
-
 	func_2 = dlsym(lib_handler, "func_2");
+	if(func_2 == NULL)
+	{
+		printf("Error loading library. Exiting...\n");
+		exit(1);
+	}
 
 	/* call func_1 from whichever library was loaded */
 
