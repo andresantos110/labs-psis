@@ -13,8 +13,6 @@ int main()
 {
   int fdC, fdS;
 
-  //unlink("/tmp/exercise3_fifoClient");
-
 	//READ FIFO
 	while((fdC = open("/tmp/exercise3_fifoClient", O_RDONLY))== -1){
 	  if(mkfifo("/tmp/exercise3_fifoClient", 0666)!=0){
@@ -25,10 +23,22 @@ int main()
 	  }
 	}
 
+	//WRITE FIFO
+	while((fdS = open("/tmp/exercise3_fifoServer", O_WRONLY))== -1){
+	 if(mkfifo("/tmp/exercise3_fifoServer", 0666)!=0){
+			printf("problem creating the fifo\n");
+			exit(-1);
+	  }else{
+		  printf("FIFO Created\n");
+	  }
+	}
+	printf("FIFO Opened for Writing\n");
+
 	int n;
 	int i;
 	char str[2];
 	int count = 0;
+	int rValue;
 
 	while(1){
 
@@ -41,6 +51,8 @@ int main()
 		if(strcmp(str, "f1") != 0 && strcmp(str, "f2") != 0)
 		{
 			printf("Invalid function name.\n");
+			rValue = 0;
+			write(fdS, &rValue, sizeof(rValue));
 		}
 		else
 		{
@@ -61,9 +73,11 @@ int main()
 				exit(1);
 			}
 
-			int rValue = function();
+			rValue = function();
+			printf("Return: %d\n", rValue);
 
-			printf("Return Value: %d\n", rValue);
+			write(fdS, &rValue, sizeof(rValue));
+
 		}
 
 	}

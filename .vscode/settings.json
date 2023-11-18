@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "fcntl.h": "c",
+        "dlfcn.h": "c",
+        "funcs.h": "c",
+        "stdio.h": "c",
+        "sstream": "c",
+        "*.inc": "c"
+    }
+}
