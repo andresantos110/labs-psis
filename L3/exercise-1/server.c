@@ -97,13 +97,12 @@ int main()
         // process connection messages
         if(m.msg_type == 0)
         {
-            ch = m.ch;
             pos_x = WINDOW_SIZE/2;
             pos_y = WINDOW_SIZE/2;
-            printf("Char: %d", ch);
+            ch = m.ch;
         }
 
-        wmove(my_win, pos_y, pos_x);
+        wmove(my_win, pos_x, pos_y);
         waddch(my_win,' '); 
 
         // TODO_11
