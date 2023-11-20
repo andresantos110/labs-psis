@@ -33,9 +33,6 @@ int main()
     m.ch = (int)inputChar;
     m.msg_type = 0;
 
-    printf("m.msg_type: %d\nm.ch = %d", m.msg_type, m.ch);
-    
-
     // TODO_6
     // send connection message
    write(fd, &m, sizeof(m));

@@ -9,13 +9,30 @@
 #include <ctype.h>
 
 int main()
-{	
+{
+
+    struct message m;
+
      //TODO_4
-	printf("fifo just opened\n");
+	int fd;
+	while((fd = open(fifo_location, O_WRONLY))== -1){
+	 if(mkfifo(fifo_location, 0666)!=0){
+			printf("problem creating the fifo\n");
+			exit(-1);
+	  }else{
+		  printf("FIFO Created\n");
+	  }
+	}
 
     //TODO_5
+    char inputChar;
+    printf("Enter the character to control: ");
+    scanf("%c", &inputChar);
+    m.ch = (int)inputChar;
+    m.msg_type = 0;
 
     // TODO_6
+   write(fd, &m, sizeof(m)); 
 
     
 
@@ -28,23 +45,13 @@ int main()
         usleep(sleep_delay);
         direction = random()%4;
         n++;
-        switch (direction)
-        {
-        case LEFT:
-           printf("%d Going Left   ", n);
-            break;
-        case RIGHT:
-            printf("%d Going Right   ", n);
-           break;
-        case DOWN:
-            printf("%d Going Down   ", n);
-            break;
-        case UP:
-            printf("%d Going Up    ", n);
-            break;
-        }
+
+        m.msg_type = 1;
+        m.direction = direction;
+
         //TODO_9
         //TODO_10
+        write(fd, &m, sizeof(m)); 
     }
 
  
