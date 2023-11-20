@@ -27,11 +27,13 @@ int main()
 
     //TODO_5
     // read the character from the user
-    int inputInt;
+    char inputChar;
     printf("Enter the character to control: ");
-    scanf("%d", &inputInt);
-    m.ch = inputInt;
+    scanf("%c", &inputChar);
+    m.ch = (int)inputChar;
     m.msg_type = 0;
+
+    printf("m.msg_type: %d\nm.ch = %d", m.msg_type, m.ch);
     
 
     // TODO_6

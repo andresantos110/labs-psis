@@ -100,14 +100,16 @@ int main()
             ch = m.ch;
             pos_x = WINDOW_SIZE/2;
             pos_y = WINDOW_SIZE/2;
+            printf("Char: %d", ch);
         }
+
+        wmove(my_win, pos_y, pos_x);
+        waddch(my_win,' '); 
+
         // TODO_11
         // process the movement message
-        if(m.msg_type = 1)
-        {
-            new_position(&pos_x, &pos_y, m.direction);
-        }
-        
+        if(m.msg_type = 1) new_position(&pos_x, &pos_y, m.direction);
+
         /* draw mark on new position */
         wmove(my_win, pos_x, pos_y);
         waddch(my_win,ch| A_BOLD);
