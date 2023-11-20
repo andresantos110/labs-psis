@@ -82,7 +82,10 @@ int main()
     direction_t  direction;
     int n;
     struct message m;
-    struct client_info clients[95]; //indexar com ascii - 32 (indice de primeiro char é 32)
+    /* There are 127 elements in the ASCII table. The first printable one is index 32: therefore, 127-32 allows us
+     * to store all the printable values and use the received char minus the offset (32) as the index. This
+     * removes the need to store the char. */
+    struct client_info clients[95];
     int currIndex = 0;
 
     while (1)
