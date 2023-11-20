@@ -29,7 +29,7 @@ int main()
     // read the character from the user
     int inputInt;
     printf("Enter the character to control: ");
-    sscanf("%d", &inputInt);
+    scanf("%d", &inputInt);
     m.ch = inputInt;
     m.msg_type = 0;
     
