@@ -13,12 +13,12 @@ int main (void)
     assert (rc == 0);
     while (1) {
         int n;
-        zmq_recv (responder, &n, sizeof(n), 0);
+        if(zmq_recv (responder, &n, sizeof(n), 0) == -1) printf("Error receiving value.\n");
         printf ("Received %d\n", n);
         n = n*2;
         sleep(5);
         printf ("Sending Reply %d\n", n);
-        zmq_send (responder, &n, sizeof(n), 0);
+        if(zmq_send (responder, &n, sizeof(n), 0) == -1) printf("Error sending value.\n");
     }
     return 0;
 }

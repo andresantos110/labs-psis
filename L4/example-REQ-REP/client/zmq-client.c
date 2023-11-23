@@ -18,8 +18,8 @@ int main (void)
         printf("type an integer ");
         scanf("%d", &n);
         printf ("Sending number %d...\n", n);
-        zmq_send (requester, &n, sizeof(n), 0);
-        zmq_recv (requester, &n, sizeof(n), 0);
+        if(zmq_send (requester, &n, sizeof(n), 0) == -1) printf("Erorr sending value.\n");
+        if(zmq_recv (requester, &n, sizeof(n), 0) == -1) printf("Error receiving value.\n");
         printf ("Received number %d\n", n);
     }
     zmq_close (requester);
