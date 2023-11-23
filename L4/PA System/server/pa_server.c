@@ -16,7 +16,7 @@ int main (void){
 
     // Bind a ZMQ_PUB socket
     void *publisher = zmq_socket(context, ZMQ_PUB);
-    int rcPub = zmq_bind(responder, "tcp://localhost:6666");
+    int rcPub = zmq_bind(publisher, "tcp://localhost:6666");
 
 
 

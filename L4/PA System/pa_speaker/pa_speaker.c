@@ -10,6 +10,13 @@ int main(){
     sscanf(line, "%s", &dpt_name);
     printf("We will broadcast all messages from the president of IST and %s\n", dpt_name);
 
+    int len = 0;
+
+    for(int i = 0; i < sizeof(dpt_name); i++) //como alternativa, usar strlen.
+    {
+        if(dpt_name[i] != '\0') len++;
+        else break;
+    }
 
     void *context = zmq_ctx_new ();
     // Connect to the server using ZMQ_SUB
@@ -17,7 +24,7 @@ int main(){
     zmq_connect (subscriber, "tcp://localhost:6666");
     // subscribe to topics
     zmq_setsockopt (subscriber, ZMQ_SUBSCRIBE, "PRES", 4);
-    zmq_setsockopt (subscriber, ZMQ_SUBSCRIBE, dpt_name, sizeof(dpt_name));
+    zmq_setsockopt (subscriber, ZMQ_SUBSCRIBE, dpt_name, len);
     
     while(1){
 

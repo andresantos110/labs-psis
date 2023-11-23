@@ -26,7 +26,7 @@ int main(){
         s_sendmore(requester, dpt_name);
         s_send(requester, message);
 
-        printf("Forwarding this message to all: %s", message);
+        printf("Forwarding this message to students and staff: %s", message);
 
         char *aux = s_recv(requester);
         free(aux);
