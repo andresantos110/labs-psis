@@ -69,7 +69,7 @@ int main()
 
     int rc = zmq_bind(responder, "tcp://localhost:5555");
 
-    int rcPub = zmq_bind(publisher, "tcp://localhost:5556");
+    int rcPub = zmq_bind(publisher, "tcp://localhost:6666");
 
     // ncurses initialization
 	initscr();		    	
@@ -127,7 +127,7 @@ int main()
             new_position(&clients[currIndex].pos_x, &clients[currIndex].pos_y, m.direction);
         }
 
-        if(zmq_send(publisher, &currIndex, sizeof(currIndex), 0) == -1) printf("Error sending char.\n");
+        if(zmq_send(publisher, &currIndex, sizeof(currIndex), ZMQ_SNDMORE) == -1) printf("Error sending char.\n");
         if(zmq_recv(publisher, &currIndex, sizeof(currIndex), 0) == -1) printf("Error receiving response.\n");
         if(zmq_send(publisher, &clients[currIndex], sizeof(struct client_info), 0) == -1) printf("Error sending client info.\n");
         if(zmq_recv(publisher, &clients[currIndex], sizeof(struct client_info), 0) == -1) printf("Error receiving response.\n");

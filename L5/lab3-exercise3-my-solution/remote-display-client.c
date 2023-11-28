@@ -15,7 +15,7 @@ int main()
 
   void *subscriber = zmq_socket(context, ZMQ_SUB);
 
-  zmq_connect(subscriber, "tcp://localhost:5556");
+  zmq_connect(subscriber, "tcp://localhost:6666");
 
   //ncurses initialization
  	initscr();		    	
@@ -30,7 +30,7 @@ int main()
 	wrefresh(my_win);
 
 
-  direction_t  direction;
+  
   int n;
   /* There are 127 elements in the ASCII table. The first printable one is index 32: therefore, 127-32 allows us
    * to store all the printable values and use the received char minus the offset (32) as the index. This
