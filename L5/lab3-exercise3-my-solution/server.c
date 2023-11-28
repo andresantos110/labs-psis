@@ -11,7 +11,7 @@
 #define WINDOW_SIZE 15
 
 direction_t random_direction(){
-    return  random()%4;
+  return  random()%4;
 
 }
 void new_position(int* x, int *y, direction_t direction){
@@ -65,7 +65,11 @@ int main()
 
     void *responder = zmq_socket(context, ZMQ_REP);
 
+    void *publisher = zmq_socket(context, ZMQ_PUB);
+
     int rc = zmq_bind(responder, "tcp://localhost:5555");
+
+    int rcPub = zmq_bind(publisher, "tcp://localhost:5556");
 
     // ncurses initialization
 	initscr();		    	
@@ -78,12 +82,6 @@ int main()
     WINDOW * my_win = newwin(WINDOW_SIZE, WINDOW_SIZE, 0, 0);
     box(my_win, 0 , 0);	
 	wrefresh(my_win);
-
-    /* information about the character */
-    int ch;
-    int pos_x;
-    int pos_y;
-
 
 
     direction_t  direction;
@@ -104,7 +102,7 @@ int main()
         if(n<=0){
             perror("read ");
             exit(-1);
-        }
+        } 
         */
         if(zmq_recv(responder, &m, sizeof(m), 0) == -1) printf("Error receiving message.\n");
         if(zmq_send(responder,&m, sizeof(m), 0) == -1) printf("Error responding.\n");
@@ -129,6 +127,11 @@ int main()
             new_position(&clients[currIndex].pos_x, &clients[currIndex].pos_y, m.direction);
         }
 
+        if(zmq_send(publisher, &currIndex, sizeof(currIndex), 0) == -1) printf("Error sending char.\n");
+        if(zmq_recv(publisher, &currIndex, sizeof(currIndex), 0) == -1) printf("Error receiving response.\n");
+        if(zmq_send(publisher, &clients[currIndex], sizeof(struct client_info), 0) == -1) printf("Error sending client info.\n");
+        if(zmq_recv(publisher, &clients[currIndex], sizeof(struct client_info), 0) == -1) printf("Error receiving response.\n");
+
         /* draw mark on new position */
         wmove(my_win, clients[currIndex].pos_x, clients[currIndex].pos_y);
         waddch(my_win,m.ch| A_BOLD);
@@ -137,6 +140,7 @@ int main()
   	endwin();			/* End curses mode		  */
 
   	zmq_close(responder);
+  	zmq_close(publisher);
   	zmq_ctx_destroy(context);
 
 	return 0;
