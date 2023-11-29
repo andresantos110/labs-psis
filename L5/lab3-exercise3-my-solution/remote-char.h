@@ -15,9 +15,3 @@ struct client_info
   int pos_x;
   int pos_y;
 } client_info;
-
-
-// TODO_2
-//declaration of the FIFO location
-
-#define fifo_location "/tmp/L3E1fifo"

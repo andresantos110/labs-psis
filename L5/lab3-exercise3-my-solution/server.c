@@ -7,6 +7,8 @@
 #include <fcntl.h> 
 #include <stdlib.h>
 #include <zmq.h>
+#include <string.h>
+#include <time.h>
 
 #define WINDOW_SIZE 15
 
@@ -44,22 +46,12 @@ void new_position(int* x, int *y, direction_t direction){
 
 int main()
 {	
-    
 
-	// TODO_3
-    // create and open the FIFO for reading
+    srand(time(NULL));
 
-    /* old solution
-    int fd;
-	while((fd = open(fifo_location, O_RDONLY))== -1){
-	  if(mkfifo(fifo_location, 0666)!=0){
-			printf("problem creating the fifo\n");
-			exit(-1);
-	  }else{
-		  printf("FIFO Created\n");
-	  }
-	}
-	*/
+	char token[100];
+
+	int tokenInt = rand()%1024;
 
     void *context = zmq_ctx_new();
 
@@ -69,14 +61,29 @@ int main()
 
     int rc = zmq_bind(responder, "tcp://localhost:5555");
 
-    int rcPub = zmq_bind(publisher, "tcp://localhost:6666");
+    int rcPub = zmq_bind(publisher, "tcp://localhost:6666");  
+
+    if(zmq_recv(responder, &token, sizeof(token), 0) == -1) printf("Error receiving payment.\n");
+    if(strcmp(token, "PAY") == 0)
+    {
+        //strcpy(token, "PAID");
+        sprintf(token, "%d", tokenInt);
+        if(zmq_send(responder,&token, sizeof(token), 0) == -1) printf("Error responding.\n");
+    }
+    else
+    {
+        strcpy(token, "NOTPAID");
+        if(zmq_send(responder,&token, sizeof(token), 0) == -1) printf("Error responding.\n");
+        //strcpy(token, "PAID");
+        sprintf(token, "%d", tokenInt);
+ 
+    }
 
     // ncurses initialization
 	initscr();		    	
 	cbreak();				
     keypad(stdscr, TRUE);   
 	noecho();			    
-
 
     /* creates a window and draws a border */
     WINDOW * my_win = newwin(WINDOW_SIZE, WINDOW_SIZE, 0, 0);
@@ -95,21 +102,10 @@ int main()
 
     while (1)
     {
-        // TODO_7
-        // receive message from the clients
-        /*
-        n = read(fd, &m, sizeof(struct message));
-        if(n<=0){
-            perror("read ");
-            exit(-1);
-        } 
-        */
+
         if(zmq_recv(responder, &m, sizeof(m), 0) == -1) printf("Error receiving message.\n");
         if(zmq_send(responder,&m, sizeof(m), 0) == -1) printf("Error responding.\n");
 
-        
-        //TODO_8
-        // process connection messages
         if(m.msg_type == 0)
         {
             currIndex = m.ch - 32;
@@ -117,8 +113,6 @@ int main()
             clients[currIndex].pos_y = WINDOW_SIZE/2;
         }
 
-        // TODO_11
-        // process the movement message
         if(m.msg_type = 1)
         {
             currIndex = m.ch - 32;
@@ -126,13 +120,12 @@ int main()
             waddch(my_win,' '); 
             new_position(&clients[currIndex].pos_x, &clients[currIndex].pos_y, m.direction);
         }
+        if(zmq_send(publisher, token, sizeof(token), ZMQ_SNDMORE) == -1) printf("Error sending type.\n");
 
-        if(zmq_send(publisher, &currIndex, sizeof(currIndex), ZMQ_SNDMORE) == -1) printf("Error sending char.\n");
-        if(zmq_recv(publisher, &currIndex, sizeof(currIndex), 0) == -1) printf("Error receiving response.\n");
+        if(zmq_send(publisher, &m.ch, sizeof(m.ch), ZMQ_SNDMORE) == -1) printf("Error sending char.\n");
+
         if(zmq_send(publisher, &clients[currIndex], sizeof(struct client_info), 0) == -1) printf("Error sending client info.\n");
-        if(zmq_recv(publisher, &clients[currIndex], sizeof(struct client_info), 0) == -1) printf("Error receiving response.\n");
 
-        /* draw mark on new position */
         wmove(my_win, clients[currIndex].pos_x, clients[currIndex].pos_y);
         waddch(my_win,m.ch| A_BOLD);
         wrefresh(my_win);			
