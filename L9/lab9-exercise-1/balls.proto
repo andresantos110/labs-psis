@@ -13,21 +13,22 @@ message ball_draw_display_msg {
 // TODO 1 - define a message (payperview_resp) with the 
 //         secret to the remote-display-client
 
-message payperview_req {
-  required int32 message_type = 1;
+typedef struct remote_char_t
+{   
+    int msg_type; /* 0 join   1 - move  2- subscribe*/
+    char subscriber_name[100];
+    char creditcard_number [100];
+    char ch; 
+    direction_t direction ; 
+    /* data */
+}remote_char_t;
+
+message ppv_request
+{
+  required int32 msg_type = 1;
   required string subscriber_name = 2;
   required string creditcard_number = 3;
-  required int32 ch = 4;
-  required int32 direction = 5;
 }
-
-message payperview_resp {
-  required int32 random_secret = 1;
-
-}
-
-
-
 // TODO 6 - define the client_connection_req message
 //          that will serialize initial client message
 

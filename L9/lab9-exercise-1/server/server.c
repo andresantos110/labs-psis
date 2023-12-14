@@ -86,9 +86,6 @@ int main()
     
     
     //STEP 2
-    zmq_msg_t zmq_msg;
-    zmq_msg_init (&zmq_msg);
-
     ch_info_t char_data[100];
     int n_chars = 0;
 
@@ -127,20 +124,14 @@ int main()
     int pos_x;
     int pos_y;
 
-    PayperviewReq *ppv_request;
-    PayperviewResp ppv_response = PAYPERVIEW_RESP__INIT;
 
     direction_t  direction;
     while (1)
     {
         int msg_type = 2;
-        int msg_len = zmq_recvmsg (responder, &zmq_msg, 0);
-        printf ("Received %d bytes\n", msg_len);
+        zmq_recv (responder, &msg_type, sizeof(msg_type), 0);
 
-        char * msg_data = zmq_msg_data (& zmq_msg);
-        ppv_request = payperview_req__unpack(NULL, msg_len, msg_data);
-
-        if(ppv_request->message_type == 2){
+        if(msg_type == 2){
             // verify credit card
 
 
@@ -148,26 +139,17 @@ int main()
             //          replace the zmq_recv by a zmq_recvmsg
             //          get the message buffer with zmq_msg_data
             //          get the C message structure with the payperview_req__unpack
-            //zmq_recvmsg (responder, &m, sizeof(remote_char_t), 0);
+            zmq_recv (responder, &m, sizeof(remote_char_t), 0);
             // TODO 3
 
             // VERIFY if CC correct 
 
 
             // TODO 4 –  send the reply as a protocol buffer payperview_resp message
-            //subscrition_ok_m rep_m;
-            //rep_m.random_secret = random_secret;
-            //zmq_send(responder, &rep_m, sizeof(rep_m), 0);
+            subscrition_ok_m rep_m;
+            rep_m.random_secret = random_secret;
+            zmq_send(responder, &rep_m, sizeof(rep_m), 0);
             // TODO 4
-            ppv_response.random_secret = random_secret;
-
-            int msg_lenResp = payperview_resp__get_packed_size(&ppv_response);
-            char *msg_bufResp = malloc(msg_lenResp);
-            payperview_resp__pack(&ppv_response, msg_bufResp);
-
-            printf ("Sending msg with  %d bytes\n", msg_len);
-            zmq_send (responder, msg_bufResp, msg_lenResp, 0);
-
             continue;
         }
         if(msg_type == 0){
