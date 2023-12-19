@@ -43,12 +43,15 @@ int main()
     fgets(client_name, 100, stdin);
     printf("you is your credit_card_name");
     fgets(cc_str, 100, stdin);
-    
+
+    zmq_msg_t zmq_msg;
+    zmq_msg_init (&zmq_msg);
     
     ch_info_t char_data[100];
     int n_chars = 0;
 
-
+    PpvRequest ppv_request = PPV_REQUEST__INIT;
+    PpvReply *ppv_reply;
 
     void *context = zmq_ctx_new ();
 
@@ -66,27 +69,42 @@ int main()
     //         create a buffer
     //         pack the C structure (payperview_req__pack) into the buffer
 
-    remote_char_t m_cc;
-    m_cc.msg_type = 2;
-    strcpy(m_cc.creditcard_number, "999123222222");
-    strcpy(m_cc.subscriber_name, "Joao Silva");
+    //remote_char_t m_cc;
+    //m_cc.msg_type = 2;
+    //strcpy(m_cc.creditcard_number, "999123222222");
+    //strcpy(m_cc.subscriber_name, "Joao Silva");
 
-    zmq_send(requester, &m_cc, sizeof(m_cc), 0);
+    //zmq_send(requester, &m_cc, sizeof(m_cc), 0);
     // TODO 2
+
+    ppv_request.creditcard_number = strdup("999123222222");
+    ppv_request.subscriber_name = strdup("Joao Silva");
+    int msg_len = ppv_request__get_packed_size(&ppv_request);
+    char * msg_buf = malloc(msg_len);
+    ppv_request__pack(&ppv_request, msg_buf);
+
+    printf ("Sending msg with  %d bytes\n", msg_len);
+    zmq_send (requester, msg_buf, msg_len, 0);
+    free(ppv_request.creditcard_number);
+    free(ppv_request.subscriber_name);
 
 
 
     // TODO 5 -  read and process the payperview_resp message
-    subscrition_ok_m resp_m;
-    zmq_recv(requester, &resp_m, sizeof(resp_m), 0);
-    printf("secret %d\n", resp_m.random_secret);
+    //subscrition_ok_m resp_m;
+    //zmq_recv(requester, &resp_m, sizeof(resp_m), 0);
+    //printf("secret %d\n", resp_m.random_secret);
     // TODO 5
 
+    int msg_lenRep = zmq_recvmsg (requester, &zmq_msg, 0); 
+    printf ("Received %d bytes\n", msg_lenRep);
 
+    void * msg_dataRep = zmq_msg_data (& zmq_msg);
+    ppv_reply = ppv_reply__unpack(NULL, msg_lenRep, msg_dataRep);
 
     void *subscriber = zmq_socket (context, ZMQ_SUB);
     zmq_connect (subscriber, "tcp://localhost:55556");
-    zmq_setsockopt (subscriber, ZMQ_SUBSCRIBE, &resp_m.random_secret, sizeof(resp_m.random_secret));
+    zmq_setsockopt (subscriber, ZMQ_SUBSCRIBE, &ppv_reply->random_secret, sizeof(ppv_reply->random_secret));
 
 
 	initscr();		    	

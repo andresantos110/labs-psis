@@ -16,6 +16,10 @@ PROTOBUF_C__BEGIN_DECLS
 
 
 typedef struct BallDrawDisplayMsg BallDrawDisplayMsg;
+typedef struct PpvRequest PpvRequest;
+typedef struct PpvReply PpvReply;
+typedef struct ClientConnectionReq ClientConnectionReq;
+typedef struct MovementReq MovementReq;
 
 
 /* --- enums --- */
@@ -32,7 +36,49 @@ struct  BallDrawDisplayMsg
 };
 #define BALL_DRAW_DISPLAY_MSG__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&ball_draw_display_msg__descriptor) \
-    , {0,NULL}, 0, 0 }
+, {0,NULL}, 0, 0 }
+
+
+struct  PpvRequest
+{
+  ProtobufCMessage base;
+  char *subscriber_name;
+  char *creditcard_number;
+};
+#define PPV_REQUEST__INIT \
+ { PROTOBUF_C_MESSAGE_INIT (&ppv_request__descriptor) \
+, NULL, NULL }
+
+
+struct  PpvReply
+{
+  ProtobufCMessage base;
+  int32_t random_secret;
+};
+#define PPV_REPLY__INIT \
+ { PROTOBUF_C_MESSAGE_INIT (&ppv_reply__descriptor) \
+, 0 }
+
+
+struct  ClientConnectionReq
+{
+  ProtobufCMessage base;
+  int32_t ch;
+};
+#define CLIENT_CONNECTION_REQ__INIT \
+ { PROTOBUF_C_MESSAGE_INIT (&client_connection_req__descriptor) \
+, 0 }
+
+
+struct  MovementReq
+{
+  ProtobufCMessage base;
+  int32_t ch;
+  int32_t direction;
+};
+#define MOVEMENT_REQ__INIT \
+ { PROTOBUF_C_MESSAGE_INIT (&movement_req__descriptor) \
+, 0, 0 }
 
 
 /* BallDrawDisplayMsg methods */
@@ -54,10 +100,98 @@ BallDrawDisplayMsg *
 void   ball_draw_display_msg__free_unpacked
                      (BallDrawDisplayMsg *message,
                       ProtobufCAllocator *allocator);
+/* PpvRequest methods */
+void   ppv_request__init
+                     (PpvRequest         *message);
+size_t ppv_request__get_packed_size
+                     (const PpvRequest   *message);
+size_t ppv_request__pack
+                     (const PpvRequest   *message,
+                      uint8_t             *out);
+size_t ppv_request__pack_to_buffer
+                     (const PpvRequest   *message,
+                      ProtobufCBuffer     *buffer);
+PpvRequest *
+       ppv_request__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data);
+void   ppv_request__free_unpacked
+                     (PpvRequest *message,
+                      ProtobufCAllocator *allocator);
+/* PpvReply methods */
+void   ppv_reply__init
+                     (PpvReply         *message);
+size_t ppv_reply__get_packed_size
+                     (const PpvReply   *message);
+size_t ppv_reply__pack
+                     (const PpvReply   *message,
+                      uint8_t             *out);
+size_t ppv_reply__pack_to_buffer
+                     (const PpvReply   *message,
+                      ProtobufCBuffer     *buffer);
+PpvReply *
+       ppv_reply__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data);
+void   ppv_reply__free_unpacked
+                     (PpvReply *message,
+                      ProtobufCAllocator *allocator);
+/* ClientConnectionReq methods */
+void   client_connection_req__init
+                     (ClientConnectionReq         *message);
+size_t client_connection_req__get_packed_size
+                     (const ClientConnectionReq   *message);
+size_t client_connection_req__pack
+                     (const ClientConnectionReq   *message,
+                      uint8_t             *out);
+size_t client_connection_req__pack_to_buffer
+                     (const ClientConnectionReq   *message,
+                      ProtobufCBuffer     *buffer);
+ClientConnectionReq *
+       client_connection_req__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data);
+void   client_connection_req__free_unpacked
+                     (ClientConnectionReq *message,
+                      ProtobufCAllocator *allocator);
+/* MovementReq methods */
+void   movement_req__init
+                     (MovementReq         *message);
+size_t movement_req__get_packed_size
+                     (const MovementReq   *message);
+size_t movement_req__pack
+                     (const MovementReq   *message,
+                      uint8_t             *out);
+size_t movement_req__pack_to_buffer
+                     (const MovementReq   *message,
+                      ProtobufCBuffer     *buffer);
+MovementReq *
+       movement_req__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data);
+void   movement_req__free_unpacked
+                     (MovementReq *message,
+                      ProtobufCAllocator *allocator);
 /* --- per-message closures --- */
 
 typedef void (*BallDrawDisplayMsg_Closure)
                  (const BallDrawDisplayMsg *message,
+                  void *closure_data);
+typedef void (*PpvRequest_Closure)
+                 (const PpvRequest *message,
+                  void *closure_data);
+typedef void (*PpvReply_Closure)
+                 (const PpvReply *message,
+                  void *closure_data);
+typedef void (*ClientConnectionReq_Closure)
+                 (const ClientConnectionReq *message,
+                  void *closure_data);
+typedef void (*MovementReq_Closure)
+                 (const MovementReq *message,
                   void *closure_data);
 
 /* --- services --- */
@@ -66,6 +200,10 @@ typedef void (*BallDrawDisplayMsg_Closure)
 /* --- descriptors --- */
 
 extern const ProtobufCMessageDescriptor ball_draw_display_msg__descriptor;
+extern const ProtobufCMessageDescriptor ppv_request__descriptor;
+extern const ProtobufCMessageDescriptor ppv_reply__descriptor;
+extern const ProtobufCMessageDescriptor client_connection_req__descriptor;
+extern const ProtobufCMessageDescriptor movement_req__descriptor;
 
 PROTOBUF_C__END_DECLS
 

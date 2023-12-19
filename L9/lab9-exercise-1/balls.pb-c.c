@@ -52,6 +52,186 @@ void   ball_draw_display_msg__free_unpacked
   assert(message->base.descriptor == &ball_draw_display_msg__descriptor);
   protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
 }
+void   ppv_request__init
+                     (PpvRequest         *message)
+{
+  static const PpvRequest init_value = PPV_REQUEST__INIT;
+  *message = init_value;
+}
+size_t ppv_request__get_packed_size
+                     (const PpvRequest *message)
+{
+  assert(message->base.descriptor == &ppv_request__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t ppv_request__pack
+                     (const PpvRequest *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &ppv_request__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t ppv_request__pack_to_buffer
+                     (const PpvRequest *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &ppv_request__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+PpvRequest *
+       ppv_request__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (PpvRequest *)
+     protobuf_c_message_unpack (&ppv_request__descriptor,
+                                allocator, len, data);
+}
+void   ppv_request__free_unpacked
+                     (PpvRequest *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &ppv_request__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   ppv_reply__init
+                     (PpvReply         *message)
+{
+  static const PpvReply init_value = PPV_REPLY__INIT;
+  *message = init_value;
+}
+size_t ppv_reply__get_packed_size
+                     (const PpvReply *message)
+{
+  assert(message->base.descriptor == &ppv_reply__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t ppv_reply__pack
+                     (const PpvReply *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &ppv_reply__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t ppv_reply__pack_to_buffer
+                     (const PpvReply *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &ppv_reply__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+PpvReply *
+       ppv_reply__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (PpvReply *)
+     protobuf_c_message_unpack (&ppv_reply__descriptor,
+                                allocator, len, data);
+}
+void   ppv_reply__free_unpacked
+                     (PpvReply *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &ppv_reply__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   client_connection_req__init
+                     (ClientConnectionReq         *message)
+{
+  static const ClientConnectionReq init_value = CLIENT_CONNECTION_REQ__INIT;
+  *message = init_value;
+}
+size_t client_connection_req__get_packed_size
+                     (const ClientConnectionReq *message)
+{
+  assert(message->base.descriptor == &client_connection_req__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t client_connection_req__pack
+                     (const ClientConnectionReq *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &client_connection_req__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t client_connection_req__pack_to_buffer
+                     (const ClientConnectionReq *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &client_connection_req__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ClientConnectionReq *
+       client_connection_req__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ClientConnectionReq *)
+     protobuf_c_message_unpack (&client_connection_req__descriptor,
+                                allocator, len, data);
+}
+void   client_connection_req__free_unpacked
+                     (ClientConnectionReq *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &client_connection_req__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   movement_req__init
+                     (MovementReq         *message)
+{
+  static const MovementReq init_value = MOVEMENT_REQ__INIT;
+  *message = init_value;
+}
+size_t movement_req__get_packed_size
+                     (const MovementReq *message)
+{
+  assert(message->base.descriptor == &movement_req__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t movement_req__pack
+                     (const MovementReq *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &movement_req__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t movement_req__pack_to_buffer
+                     (const MovementReq *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &movement_req__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+MovementReq *
+       movement_req__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (MovementReq *)
+     protobuf_c_message_unpack (&movement_req__descriptor,
+                                allocator, len, data);
+}
+void   movement_req__free_unpacked
+                     (MovementReq *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &movement_req__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
 static const ProtobufCFieldDescriptor ball_draw_display_msg__field_descriptors[3] =
 {
   {
@@ -114,5 +294,183 @@ const ProtobufCMessageDescriptor ball_draw_display_msg__descriptor =
   ball_draw_display_msg__field_indices_by_name,
   1,  ball_draw_display_msg__number_ranges,
   (ProtobufCMessageInit) ball_draw_display_msg__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor ppv_request__field_descriptors[2] =
+{
+  {
+    "subscriber_name",
+    1,
+    PROTOBUF_C_LABEL_REQUIRED,
+    PROTOBUF_C_TYPE_STRING,
+    0,   /* quantifier_offset */
+    offsetof(PpvRequest, subscriber_name),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "creditcard_number",
+    2,
+    PROTOBUF_C_LABEL_REQUIRED,
+    PROTOBUF_C_TYPE_STRING,
+    0,   /* quantifier_offset */
+    offsetof(PpvRequest, creditcard_number),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned ppv_request__field_indices_by_name[] = {
+  1,   /* field[1] = creditcard_number */
+  0,   /* field[0] = subscriber_name */
+};
+static const ProtobufCIntRange ppv_request__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 2 }
+};
+const ProtobufCMessageDescriptor ppv_request__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ppv_request",
+  "PpvRequest",
+  "PpvRequest",
+  "",
+  sizeof(PpvRequest),
+  2,
+  ppv_request__field_descriptors,
+  ppv_request__field_indices_by_name,
+  1,  ppv_request__number_ranges,
+  (ProtobufCMessageInit) ppv_request__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor ppv_reply__field_descriptors[1] =
+{
+  {
+    "random_secret",
+    1,
+    PROTOBUF_C_LABEL_REQUIRED,
+    PROTOBUF_C_TYPE_INT32,
+    0,   /* quantifier_offset */
+    offsetof(PpvReply, random_secret),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned ppv_reply__field_indices_by_name[] = {
+  0,   /* field[0] = random_secret */
+};
+static const ProtobufCIntRange ppv_reply__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 1 }
+};
+const ProtobufCMessageDescriptor ppv_reply__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ppv_reply",
+  "PpvReply",
+  "PpvReply",
+  "",
+  sizeof(PpvReply),
+  1,
+  ppv_reply__field_descriptors,
+  ppv_reply__field_indices_by_name,
+  1,  ppv_reply__number_ranges,
+  (ProtobufCMessageInit) ppv_reply__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor client_connection_req__field_descriptors[1] =
+{
+  {
+    "ch",
+    1,
+    PROTOBUF_C_LABEL_REQUIRED,
+    PROTOBUF_C_TYPE_INT32,
+    0,   /* quantifier_offset */
+    offsetof(ClientConnectionReq, ch),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned client_connection_req__field_indices_by_name[] = {
+  0,   /* field[0] = ch */
+};
+static const ProtobufCIntRange client_connection_req__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 1 }
+};
+const ProtobufCMessageDescriptor client_connection_req__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "client_connection_req",
+  "ClientConnectionReq",
+  "ClientConnectionReq",
+  "",
+  sizeof(ClientConnectionReq),
+  1,
+  client_connection_req__field_descriptors,
+  client_connection_req__field_indices_by_name,
+  1,  client_connection_req__number_ranges,
+  (ProtobufCMessageInit) client_connection_req__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor movement_req__field_descriptors[2] =
+{
+  {
+    "ch",
+    1,
+    PROTOBUF_C_LABEL_REQUIRED,
+    PROTOBUF_C_TYPE_INT32,
+    0,   /* quantifier_offset */
+    offsetof(MovementReq, ch),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "direction",
+    2,
+    PROTOBUF_C_LABEL_REQUIRED,
+    PROTOBUF_C_TYPE_INT32,
+    0,   /* quantifier_offset */
+    offsetof(MovementReq, direction),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned movement_req__field_indices_by_name[] = {
+  0,   /* field[0] = ch */
+  1,   /* field[1] = direction */
+};
+static const ProtobufCIntRange movement_req__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 2 }
+};
+const ProtobufCMessageDescriptor movement_req__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "movement_req",
+  "MovementReq",
+  "MovementReq",
+  "",
+  sizeof(MovementReq),
+  2,
+  movement_req__field_descriptors,
+  movement_req__field_indices_by_name,
+  1,  movement_req__number_ranges,
+  (ProtobufCMessageInit) movement_req__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
